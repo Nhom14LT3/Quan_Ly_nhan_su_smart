@@ -88,7 +88,7 @@ Truy cập trình duyệt: http://127.0.0.1:5000
 |----------|-------------|------------|
 | Admin    | admin       | admin123   |
 | Manager  | manager     | manager123 |
-| Employee | hoangnguyen | hoang123   |
+| Employee | phuongbui   | phuong123  |
 
 ---
 
@@ -124,7 +124,6 @@ Quan_ly_nhan_su/
 
 ## Tài liệu & trình bày
 
-- Báo cáo chi tiết: https://drive.google.com/file/d/1vtyD4xOMvdyWtVzFW5gLwe8_rHewh7Gu/view?usp=sharing
 
 ---
 
@@ -132,9 +131,8 @@ Quan_ly_nhan_su/
 
 Tác giả chính: Bùi Thế Phương 
 Email: 23010097@st.phenikaa-uni.edu.vn  
-GitHub: https://github.com/Group15N07/Quan_ly_nhan_su
+GitHub: https://github.com/Nhom14LT3/Quan_Ly_nhan_su_smart
 
----
 
 ## Giấy phép
 
