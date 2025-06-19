@@ -1,0 +1,52 @@
+<div id="sidebar" class="text-white">
+ <div class="sidebar-header text-center py-3">
+  <!-- Logo (giữa) -->
+  <img src="{{ url_for('static', filename='img/logo.jpg') }}" width="50" class="mx-auto d-block logo-img">
+
+  <!-- Info và toggle button -->
+  <div class="d-flex justify-content-between align-items-center mt-2 px-2">
+        <div class="sidebar-text text-start">
+      <h6 class="mb-0 text-white">
+        <a class="nav-link {% if request.path.startswith('/ttnhanvien') %}active{% endif %}" href="{{ url_for('infor_employee.thong_tin_nhan_vien') }}" style="text-align: center;">
+          Employee
+        </a>
+      </h6>
+      <small class="text-white-50">Chào mừng bạn trở lại</small>
+    </div>
+
+    <button id="sidebarToggle" onclick="toggleSidebar()" class="toggle-btn text-white">
+      ☰
+    </button>
+  </div>
+</div>
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == url_for('dashboard.root') %}active{% endif %}" href="{{ url_for('dashboard.root') }}">
+        <i class="fas fa-chart-line icon"></i>
+        <span class="text">Bảng điều khiển</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path.startswith('/chamcong') %}active{% endif %}" href="{{ url_for('attendance.bang_cham_cong_ngay') }}">
+        <i class="fas fa-clock icon"></i>
+        <span class="text">Chấm công</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path.startswith('/gameboard') %}active{% endif %}" href="{{ url_for('gameboard.gameboard', user_id=current_user.id) }}">
+        <i class="fas fa-gamepad icon"></i>
+        <span class="text">Game board</span>
+      </a>
+    </li>
+    <li class="nav-item">
+  <a class="nav-link {% if request.path == url_for('settings.change_password') %}active{% endif %}" href="{{ url_for('settings.change_password') }}">
+    <i class="fas fa-cog icon"></i> <span class="text">Cài đặt</span>
+  </a>
+</li>
+    <li class="nav-item">
+      <a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">
+        <i class="fas fa-sign-out-alt icon"></i> <span class="text">Đăng xuất</span>
+      </a>
+    </li>
+  </ul>
+</div>

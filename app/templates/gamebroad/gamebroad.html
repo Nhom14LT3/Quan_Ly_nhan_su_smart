@@ -1,0 +1,38 @@
+{% extends layout %}
+{% block content %}
+<div class="gameboard-container">
+    <div class="avatar">
+        <img src="{{ user.avatar_url }}" alt="avatar">
+    </div>
+    <div class="player-name" id="playerName">{{ user.username }}</div>
+    <div class="level">Level <span id="playerLevel">{{ level }}</span></div>
+    <div class="score" id="playerScore">{{ score }}</div>
+    <div class="progress-bar-bg">
+        <div class="progress-bar" id="levelProgress" style="width: {{ (score/600*100)|round(0) }}%;"></div>
+    </div>
+    <div class="badges">
+        {% for badge in user.badges %}
+        <div class="badge">
+            <span class="badge-icon">{{ badge.icon }}</span>
+            <span>{{ badge.name }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="stats">
+        <div>Điểm: <b id="statScore">{{ score }}</b></div>
+        <div>Tổng Huy hiệu: <b id="statBadges">{{ user.badges|length }}</b></div>
+        <div>Xếp: <b id="statRank">{{ user_rank }}</b></div>
+    </div>
+    <div class="ranking">
+        <div class="ranking-title">🏆 Bảng xếp hạng tuần</div>
+        <ul class="ranking-list">
+            {% for r in ranking %}
+            <li{% if r.me %} class="me"{% endif %}>
+                <span>{{ loop.index }}. {{ r.name }}</span><span>{{ r.score }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/gameboard.css') }}">
+{% endblock %}

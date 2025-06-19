@@ -1,0 +1,92 @@
+{% extends layout %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/thongtinnhanvien.css') }}">
+<div class="container">
+    <div class="header">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Pheniikaa University Logo">
+    </div>
+
+    <div class="avatar-upload text-center">
+        <img src="{{ url_for('static', filename='img/avatars/' ~ current_user.avatar) }}" alt="Avatar" class="avatar">
+        
+        <!-- Nút cập nhật -->
+        {% if current_user.role == 'employee' %}
+            <a href="{{ url_for('infor_employee.update_employee_info') }}" class="btn btn-outline-secondary mt-2">
+                📝 Yêu cầu cập nhật
+            </a>
+        {% else %}
+            <a href="{{ url_for('infor_employee.update_employee_info') }}" class="btn btn-outline-primary mt-2">
+                ✏️ Chỉnh sửa thông tin
+            </a>
+        {% endif %}
+    </div>
+
+    <h2>Thông tin nhân viên</h2>
+
+    <div class="field-row">
+        <div class="field-group">
+            <label class="field-label">Họ và tên</label>
+            <input type="text" class="form-input" value="{{ thong_tin.TenNV }}" readonly>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Giới tính</label>
+            <input type="text" class="form-input" value="{{ thong_tin.Gioitinh }}" readonly>
+        </div>
+    </div>
+
+    <div class="field-row">
+        <div class="field-group">
+            <label class="field-label">Quốc tịch</label>
+            <input type="text" class="form-input" value="{{ thong_tin.QuocTich }}" readonly>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Nơi sinh</label>
+            <input type="text" class="form-input" value="{{ thong_tin.NoiSinh }}" readonly>
+        </div>
+    </div>
+
+    <div class="field-row">
+        <div class="field-group">
+            <label class="field-label">Mã hợp đồng</label>
+            <input type="text" class="form-input" value="{{ thong_tin.MAHD }}" readonly>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Phòng ban</label>
+            <input type="text" class="form-input" value="{{ thong_tin.MaPB }}" readonly>
+        </div>
+    </div>
+
+    <div class="field-row">
+        <div class="field-group">
+            <label class="field-label">Mã nhân viên</label>
+            <input type="text" class="form-input" value="{{ thong_tin.MaNV }}" readonly>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Email</label>
+            <input type="email" class="form-input" value="{{ thong_tin.Email }}" readonly>
+        </div>
+    </div>
+
+    <div class="field-row">
+        <div class="field-group">
+            <label class="field-label">Số điện thoại</label>
+            <input type="text" class="form-input" value="{{ thong_tin.SDT }}" readonly>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Chức vụ</label>
+            <input type="text" class="form-input" value="{{ thong_tin.MaCV }}" readonly>
+        </div>
+    </div>
+
+    <div class="field-row">
+        <div class="field-group">
+            <label class="field-label">Ngày sinh</label>
+            <input type="text" class="form-input" value="{{ thong_tin.NgaySinh.strftime('%d/%m/%Y') if thong_tin.NgaySinh else '' }}" readonly>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Lương</label>
+            <input type="text" class="form-input" value="{{ thong_tin.Luong }}" readonly>
+        </div>
+    </div>
+</div>
+{% endblock %}

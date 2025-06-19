@@ -1,0 +1,58 @@
+{% extends layout %}
+
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/attendance.css') }}">
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+        <h2 class="mb-0 text-primary fw-semibold">
+            <i class="fas fa-calendar-alt icon me-2"></i> Thống kê chấm công theo năm
+        </h2>
+
+        <div class="d-flex align-items-center ms-auto flex-wrap gap-2">
+            <form method="get" class="d-flex align-items-center">
+                <label for="year" class="form-label me-2 mb-0">Chọn năm:</label>
+                <select name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit()">
+                    {% for y in range(2020, 2031) %}
+                        <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+
+            <a href="{{ url_for('attendance.tongket_cham_cong_thang', year=year) }}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Tháng
+            </a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle text-center w-100">
+            <thead class="table-primary">
+                <tr>
+                    <th>Họ tên</th>
+                    {% for m in range(1, 13) %}
+                        <th>Th {{ m }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in summary %}
+                <tr>
+                    <td class="text-start">{{ u.name }}</td>
+                    {% for m in u.months %}
+                        <td>
+                            {% if m.count > 0 %}
+                                <a href="{{ url_for('attendance.chi_tiet_cham_cong_thang', employee_code=u.employee_code, month=m.month) }}">
+                                    {{ m.count }}
+                                </a>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

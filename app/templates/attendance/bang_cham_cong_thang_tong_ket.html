@@ -1,0 +1,78 @@
+{% extends layout %}
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/month.css') }}">
+<div class="container-fluid px-4 py-4">
+    <!-- Tiêu đề, form lọc và nút quay lại trên cùng 1 hàng -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap bg-gradient rounded shadow-sm px-4 py-3"
+         style="background: linear-gradient(to right, #007bff, #6f42c1); color: white;">
+        <h3 class="mb-0">
+            <i class="fas fa-calendar-alt me-2"></i> Tổng kết công tháng {{ month }}/{{ year }}
+        </h3>
+        
+        <!-- Form lọc và export -->
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <form method="GET" class="d-flex align-items-center gap-2 flex-wrap">
+                <div class="d-flex align-items-center gap-1">
+                    <label class="form-label mb-0 text-white-50 small">Tháng</label>
+                    <select name="month" class="form-select form-select-sm" style="width: 70px;">
+                        {% for m in range(1, 13) %}
+                            <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                    <label class="form-label mb-0 text-white-50 small">Năm</label>
+                    <input type="number" name="year" class="form-control form-control-sm" value="{{ year }}" style="width: 80px;">
+                </div>
+                <button type="submit" class="btn btn-sm btn-light text-dark px-3">
+                    <i class="fas fa-filter"></i> Lọc
+                </button>
+                <a href="{{ url_for('attendance.export_excel', month=month, year=year) }}"
+                   class="btn btn-sm btn-success px-3">
+                    <i class="fas fa-file-excel"></i> Excel
+                </a>
+            </form>
+            
+            <a href="{{ url_for('attendance.tong_hop_nam') }}"
+               class="btn btn-light text-dark shadow-sm rounded-pill px-3">
+                <i class="fas fa-arrow-left me-1"></i> Quay lại thống kê năm
+            </a>
+        </div>
+    </div>
+
+    <!-- Bảng dữ liệu -->
+    {% if summaries %}
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-striped text-center align-middle bg-white w-100 shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>Họ tên</th>
+                    <th>Số ngày làm</th>
+                    <th>Tổng giờ</th>
+                    <th>Số ngày vắng</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in summaries %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <a href="{{ url_for('attendance.chi_tiet_cham_cong_thang', employee_code=s.employee_code, month=month) }}"
+                           class="text-decoration-none text-primary fw-bold">
+                            {{ s.name }}
+                        </a>
+                    </td>
+                    <td>{{ s.days_worked }}</td>
+                    <td>{{ "%.2f"|format(s.total_hours or 0) }}</td>
+                    <td>{{ s.days_absent }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="alert alert-warning mt-3">Không có dữ liệu cho tháng này.</div>
+    {% endif %}
+</div>
+{% endblock %}

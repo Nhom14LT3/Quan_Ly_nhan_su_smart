@@ -1,0 +1,198 @@
+{% extends layout %}
+{% block content %}
+<style>
+    .table-responsive {
+    overflow-x: auto;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table thead th {
+    background-color: #e9ab6e;
+    color: white;
+}
+ .search-box {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 999px;
+        overflow: hidden;
+        background: white;
+        height: 40px;
+        width: 280px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-box input {
+        border: none;
+        outline: none;
+        padding: 0 15px;
+        flex: 1;
+        font-size: 15px;
+        background: transparent;
+    }
+
+    .search-box button {
+        background: transparent;
+        border: none;
+        padding: 0 12px;
+        cursor: pointer;
+        color: #FF8F35;
+        font-size: 18px;
+    }
+
+    .search-box:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .search-box button:hover{
+    font-size: 20px;
+    }
+
+</style>
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Danh sách nhân viên</h3>
+        <a href="{{ url_for('infor_employee.add_employee_info') }}" class="btn btn-success">
+            <i class="fas fa-user-plus"></i> Thêm nhân viên
+        </a>
+    </div>
+
+    <!-- Thanh công cụ -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <form class="d-flex" method="GET" action="{{ url_for('infor_employee.list_all_employees') }}">
+    <div class="search-box">
+        <input type="text" name="query" class="form-control" placeholder="Tìm theo mã nhân viên..." value="{{ request.args.get('query', '') }}">
+        <button type="submit">
+            <i class="fas fa-search" ></i>
+        </button>
+    </div>
+</form>
+
+
+        <div class="d-flex gap-2">
+            <form method="POST" enctype="multipart/form-data" action="{{ url_for('infor_employee.import_employees') }}">
+                <label class="btn btn-outline-secondary mb-0">
+                    <i class="fas fa-file-import"></i> Import
+                    <input type="file" name="file" hidden>
+                </label>
+            </form>
+            <a href="{{ url_for('infor_employee.export_employees') }}" class="btn btn-outline-primary">
+                <i class="fas fa-file-excel"></i> Excel
+            </a>
+            <a href="{{ url_for('infor_employee.export_employees_pdf') }}" class="btn btn-outline-danger">
+                <i class="fas fa-file-pdf"></i> PDF
+            </a>
+            <a href="{{ url_for('infor_employee.pending_approval') }}" class="btn btn-outline-warning position-relative">
+                <i class="fas fa-user-clock"></i> Duyệt thông tin
+                {% if pending_count > 0 %}
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ pending_count }}
+                    <span class="visually-hidden">yêu cầu chờ duyệt</span>
+                </span>
+                {% endif %}
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Bảng danh sách nhân viên -->
+    <table class="table table-bordered table-hover table-striped">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Mã NV</th>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>SĐT</th>
+                <th>Chức vụ</th>
+                <th>Phòng ban</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nv in danh_sach %}
+            <tr>
+                <td>{{ nv.MaNV }}</td>
+                <td>{{ nv.TenNV }}</td>
+                <td>{{ nv.Email }}</td>
+                <td>{{ nv.SDT }}</td>
+                <td>{{ nv.MaCV }}</td>
+                <td>{{ nv.MaPB }}</td>
+                <td class="text-center">
+                    <a href="{{ url_for('infor_employee.view_employee_detail', MaNV=nv.MaNV) }}" class="btn btn-sm btn-info" title="Xem chi tiết">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <form action="{{ url_for('infor_employee.delete_employee', MaNV=nv.MaNV) }}" method="post" style="display:inline-block;" class="delete-form">
+                        <button type="submit" class="btn btn-sm btn-danger" title="Xóa">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+                
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Xác nhận trước khi xóa
+    document.querySelectorAll(".delete-form").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Xác nhận xóa?',
+                text: "Nhân viên sẽ bị xóa vĩnh viễn!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+
+    // Xem tên file khi chọn import
+    const fileInput = document.querySelector("input[name='file']");
+    if (fileInput) {
+        fileInput.addEventListener("change", function () {
+            if (this.files.length > 0) {
+                Swal.fire({
+                    title: 'Đã chọn file',
+                    text: this.files[0].name,
+                    icon: 'info',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+        });
+    }
+
+    // Tìm kiếm theo Mã NV
+    const searchInput = document.querySelector("input[name='query']");
+    if (searchInput) {
+        searchInput.addEventListener("keyup", function () {
+            const keyword = this.value.toLowerCase();
+            const rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                const maNV = row.cells[0].textContent.toLowerCase();
+                row.style.display = maNV.includes(keyword) ? "" : "none";
+            });
+        });
+    }
+</script>
+{% endblock %}

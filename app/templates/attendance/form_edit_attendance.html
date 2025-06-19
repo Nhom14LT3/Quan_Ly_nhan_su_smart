@@ -1,0 +1,27 @@
+{% extends layout %}
+{% block content %}
+<div class="container mt-4">
+    <h4>Sửa thông tin chấm công ngày {{ record.date.strftime('%Y-%m-%d') }} cho {{ record.user.username }}</h4>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="check_in">Giờ check-in:</label>
+            <input type="datetime-local" id="check_in" name="check_in" class="form-control"
+                   value="{{ record.check_in.strftime('%Y-%m-%dT%H:%M') if record.check_in else '' }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="check_out">Giờ check-out:</label>
+            <input type="datetime-local" id="check_out" name="check_out" class="form-control"
+                   value="{{ record.check_out.strftime('%Y-%m-%dT%H:%M') if record.check_out else '' }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="ot_hours">Số giờ OT (nếu có):</label>
+            <input type="number" step="0.1" min="0" name="ot_hours" class="form-control" value="{{ record.ot_hours or 0 }}">
+        </div>
+
+        <button type="submit" class="btn btn-success">💾 Lưu thay đổi</button>
+        <a href="{{ url_for('attendance.chi_tiet_cham_cong_thang', employee_code=record.user.employee_code, month=record.date.month) }}" class="btn btn-secondary">Hủy bỏ</a>
+    </form>
+</div>
+{% endblock %}

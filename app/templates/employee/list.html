@@ -1,0 +1,63 @@
+{% extends layout%}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/employee.css') }}">
+
+<div class="container-fluid">
+    <div class="main-container">
+        <div class="header-section">
+            <h1 class="page-title">Danh sách tài khoản nhân viên</h1>
+        </div>
+        
+        <div class="search-add-section">
+            <a href="{{ url_for('employee.add_employee') }}" class="add-btn">
+                <i class="fa fa-plus"></i> Thêm nhân viên
+            </a>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Tìm đăng nhập" id="searchInput">
+                <i class="fa fa-search search-icon"></i>
+            </div>
+        </div>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        
+        <table class="table employee-table" id="employeeTable">
+            <thead class="table-header">
+                <tr>
+                    <th>STT</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Quyền</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td><strong>{{ loop.index }}</strong></td>
+                    <td><strong>{{ u.username }}</strong></td>
+                    <td>
+                        <span class="role-badge role-{{ u.role }}">{{ u.role }}</span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{{ url_for('employee.edit_employee', id=u.id) }}" class="btn-edit" title="Chỉnh sửa">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <form method="POST" action="{{ url_for('employee.delete_employee', id=u.id) }}" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?')">
+                                <button type="submit" class="btn-delete" title="Xóa">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- <script src="{{ url_for('static', filename='js/list_employee.js') }}"></script> -->
+{% endblock %}

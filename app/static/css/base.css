@@ -1,0 +1,166 @@
+/* --- Layout & Background --- */
+body {
+    /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body #page-content-wrapper {
+    /* background-image: url('/static/img/background_employee.jpg'); */
+    background-color: white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    backdrop-filter: blur(10px);
+  
+}
+#sidebar {
+  width: 230px;
+  min-height: 100vh;
+  background-color: #223771;
+  transition: width 0.3s ease;
+  position: fixed;
+  z-index: 1000;
+}
+
+#sidebar.collapsed {
+  width: 70px;
+}
+#sidebar.collapsed .header-text {
+  display: none;
+}
+#sidebar .sidebar-header {
+  position: relative;
+}
+#sidebar.collapsed .text {
+  display: none;
+}
+
+#sidebar .icon {
+  width: 30px;
+  text-align: center;
+}
+
+.main-content{
+  margin-left: 230px; /* tương ứng với sidebar */
+  transition: margin-left 0.3s ease;
+}
+#sidebar .logo-img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#sidebar.collapsed .logo-img{
+  transform: scale(0.9);
+}
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  padding: 0;
+}
+#sidebar.collapsed .sidebar-text {
+  text-align: center;
+  display: none;
+}
+
+/* Chuyển đổi biểu tượng ☰ ↔ X */
+#sidebar.collapsed .toggle-btn::before {
+  content: "✕";
+}
+#sidebar.collapsed + .main-content {
+  margin-left: 70px;
+}
+
+#sidebar .nav-link {
+  color: #fff;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+  /* position: relative; 👈 để xác định nền nằm đúng */
+  z-index: 1;
+}
+
+#sidebar .nav-link:hover {
+  background-color: orange; /* đổi màu khi hover */
+  color: #fff;
+}
+#sidebar .nav-link.active {
+  background-color: orange;
+  color: #fff;
+}
+.main-content {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.topbar {
+  height: 60px;
+  background-color: #223771;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+}
+
+/* .topbar input[type="text"] {
+  border-radius: 20px;
+  border: none;
+  padding: 5px 15px;
+  width: 250px;
+} */
+#wrapper {
+  display: flex;
+}
+
+#sidebar {
+  z-index: 1000;
+}
+
+.search-input {
+  background-color: orange;
+
+  color: #fff;
+  border: 2px solid white;
+  padding-right: 40px;
+}
+
+.search-input:focus {
+  border-color: #223771;
+  background-color: none;
+  outline: none;
+  fill: none;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: gray;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  color: orange;
+}
+
+#dashboard-copyright{
+  background-color: #5d7e22;
+  text-align:center;
+  margin-top: 24px;
+  color:#888;
+font-family: "Quicksand", sans-serif;
+  font-size: 1.1rem;
+}
+#dashboard-copyright span{
+  color: #ff814f;
+  font-family: "Quicksand", sans-serif;
+}

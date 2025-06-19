@@ -1,0 +1,43 @@
+{% extends layout %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Chi tiết chấm công - {{ user.username }} ({{ month }}/{{ year }})</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Ngày</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
+                <th>OT</th>
+                <th>Tổng giờ</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in records %}
+            <tr>
+                <td>{{ r.date.strftime('%d/%m/%Y') }}</td>
+                <td>{{ r.check_in.strftime('%H:%M:%S') if r.check_in else '-' }}</td>
+                <td>{{ r.check_out.strftime('%H:%M:%S') if r.check_out else '-' }}</td>
+                <td>{{ r.ot if r.ot else '0.0' }}</td>
+                <td>{{ r.total_hours if r.total_hours else '-' }}</td>
+                <td>
+                    {% if r.check_in and r.check_out %} ✅ Đầy đủ
+                    {% elif r.check_in %} ⏱ Chưa check-out
+                    {% else %} ❌ Thiếu dữ liệu
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('attendance.edit_attendance', id=r.id) }}" class="btn btn-warning btn-sm">Sửa</a>
+                    <form action="{{ url_for('attendance.delete_attendance', id=r.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Xóa bản ghi này?')">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('attendance.tongket_cham_cong_thang', month=month, year=year) }}" class="btn btn-secondary">⬅ Quay lại</a>
+</div>
+{% endblock %}

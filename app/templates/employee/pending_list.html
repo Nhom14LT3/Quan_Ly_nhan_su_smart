@@ -1,0 +1,76 @@
+{% extends layout %}
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>📋 Yêu cầu cập nhật thông tin</h3>
+        <a href="{{ url_for('infor_employee.list_all_employees') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại danh sách
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Mã NV</th>
+                <th>Tên nhân viên</th>
+                <th>Email</th>
+                <th>Điện thoại</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nv in danh_sach %}
+            <tr>
+                <td>{{ nv.MaNV }}</td>
+                <td>{{ nv.TenNV }}</td>
+                <td>{{ nv.Email }}</td>
+                <td>{{ nv.SDT }}</td>
+                <td class="text-center">
+                    <form method="POST" action="{{ url_for('infor_employee.approve_employee', MaNV=nv.MaNV) }}" class="d-inline-block approve-form">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fas fa-check"></i> Phê duyệt
+                        </button>
+                    </form>
+                    <form method="POST" action="{{ url_for('infor_employee.reject_employee', MaNV=nv.MaNV) }}" class="d-inline-block reject-form">
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fas fa-times"></i> Từ chối
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" class="text-center text-muted">
+                    <i class="fas fa-check-circle"></i> Không có yêu cầu nào cần duyệt.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.approve-form, .reject-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const isApprove = form.classList.contains('approve-form');
+            Swal.fire({
+                title: isApprove ? 'Phê duyệt thông tin?' : 'Từ chối và xóa thông tin?',
+                icon: isApprove ? 'question' : 'warning',
+                showCancelButton: true,
+                confirmButtonColor: isApprove ? '#28a745' : '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: isApprove ? 'Phê duyệt' : 'Từ chối',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

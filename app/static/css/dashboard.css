@@ -1,0 +1,95 @@
+
+.dashboard-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-start; /* căn trái */
+    align-items: flex-start;     /* căn trên */
+    flex-wrap: nowrap;           /* không xuống dòng */
+    gap: 24px;                   /* khoảng cách giữa các hộp */
+    padding: 40px 0 0 40px;      /* lề trên và trái */
+    min-height: 40vh;
+    background: transparent !important; /* Bỏ nền trắng */
+    box-shadow: none !important;        /* Bỏ đổ bóng nếu có */
+}
+
+/* Style từng hộp chức năng */
+.dashboad-item {
+    width: 130px;           /* giảm chiều rộng */
+    height: 130px;          /* giảm chiều cao */
+    border-radius: 16px;
+    overflow: visible;      /* Cho phép icon nổi lên */
+    background-color: transparent;   /* Bỏ nền trắng */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10); /* đổ bóng nhẹ mặc định */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+    position: relative;
+    margin-bottom: 0;
+    border: none;   
+    background: #223771;        /* Bỏ viền border */
+}
+
+/* Đưa icon nổi lên phía trên hộp, tăng kích thước ảnh */
+.dashboad-item-box img {
+    width: 90px;            /* tăng kích thước ảnh */
+    height: 90px;
+    object-fit: contain;
+    position: absolute;
+    top: -30px;             /* 2/3 ảnh nằm trong hộp, 1/3 nổi lên */
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;    /* Bỏ nền trắng */
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(38,70,94,0.10);
+    border: none;           /* Bỏ viền border */
+    margin-bottom: 0;
+    z-index: 2;
+}
+
+/* Đẩy tiêu đề xuống dưới icon, căn giữa */
+.dashboad-title {
+    margin-top: 60px;       /* tạo khoảng cách với icon lớn hơn */
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+/* Đảm bảo nội dung hộp nằm dưới icon */
+.dashboad-item-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    padding: 18px 6px 16px 6px;
+    border: none;           /* Bỏ viền border */
+    border-radius: 16px;
+    background-color: transparent; /* Bỏ nền trắng */
+    position: relative;
+}
+
+/* Hiệu ứng hover: đổ nền nhẹ, bỏ border */
+.dashboad-item:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 8px 24px rgba(38,70,94,0.13), 0 2px 8px rgba(0,0,0,0.10);
+    background: #f7faff;
+    border: none;
+}
+
+/* --- Hết phần chỉnh sửa --- */
+
+.dashboard-content {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+    background: transparent !important; /* Bỏ nền trắng */
+    box-shadow: none !important;
+}
+.dashboard-greeting{
+    color: rgb(0, 23, 128);
+    font-size: 24px;
+}

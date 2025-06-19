@@ -1,0 +1,63 @@
+{% extends layout %}
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/employee.css') }}">
+<div class="container">
+    <div class="form-container">
+        <a href="{{ url_for('employee.list_employee')}}" class="back-link">
+            <i class="fa fa-arrow-left"></i> Quay lại danh sách
+        </a>
+        <h3 class="form-title">Thêm nhân viên</h3>
+        <form method="POST" id="addEmployeeForm" autocomplete="off">
+            <div class="form-group">
+                <label for="username" class="form-label">Tên đăng nhập</label>
+                <input type="text" name="username" id="username" class="form-control" required minlength="3">
+                <span class="input-icon"><i class="fa fa-user"></i></span>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input type="password" name="password" id="password" class="form-control" required minlength="6">
+                <span class="input-icon"><i class="fa fa-lock"></i></span>
+                <span class="password-toggle">
+                    <i class="fa fa-eye" id="togglePasswordIcon"></i>
+                </span>
+            </div>
+            <div class="password-hint">
+                <i class="fa fa-lightbulb"></i> Mật khẩu phải có ít nhất 6 ký tự
+            </div>
+            <div class="form-group">
+                <label for="role" class="form-label">Phân quyền</label>
+                <select name="role" id="role" class="form-control" required>
+                    <option value="">-- Chọn phân quyền --</option>
+                    <option value="employee">Nhân viên</option>
+                    <option value="admin">Quản trị viên</option>
+                    <option value="manager">Quản lý</option>
+                </select>
+                <span class="input-icon"><i class="fa fa-user-shield"></i></span>
+            </div>
+            <button type="submit" class="btn-save" id="submitBtn">
+                <i class="fa fa-plus-circle"></i> Thêm nhân viên
+            </button>
+        </form>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.querySelector('.password-toggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = document.getElementById('togglePasswordIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

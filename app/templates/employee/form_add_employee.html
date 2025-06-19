@@ -1,0 +1,88 @@
+{% extends layout %}
+{% block content %}
+<div class="container">
+    <h2 class="mt-4 mb-3">
+        {% if current_user.role == 'employee' %}
+            Gửi thông tin nhân viên mới
+        {% else %}
+            Thêm thông tin nhân viên
+        {% endif %}
+    </h2>
+
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Mã nhân viên</label>
+                <input type="text" class="form-control" name="MaNV" value="{{ thong_tin.MaNV if thong_tin else current_user.employee_code }}" readonly>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Họ và tên</label>
+                <input type="text" class="form-control" name="TenNV" value="{{ thong_tin.TenNV if thong_tin else '' }}" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Số điện thoại</label>
+                <input type="text" class="form-control" name="SDT" value="{{ thong_tin.SDT if thong_tin else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Email</label>
+                <input type="email" class="form-control" name="Email" value="{{ thong_tin.Email if thong_tin else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Ngày sinh</label>
+                <input type="date" class="form-control" name="NgaySinh" value="{{ thong_tin.NgaySinh.strftime('%Y-%m-%d') if thong_tin and thong_tin.NgaySinh else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Giới tính</label>
+                <select class="form-select" name="Gioitinh">
+                    <option value="Nam" {% if thong_tin and thong_tin.Gioitinh == 'Nam' %}selected{% endif %}>Nam</option>
+                    <option value="Nữ" {% if thong_tin and thong_tin.Gioitinh == 'Nữ' %}selected{% endif %}>Nữ</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Nơi sinh</label>
+                <input type="text" class="form-control" name="NoiSinh" value="{{ thong_tin.NoiSinh if thong_tin else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Quốc tịch</label>
+                <input type="text" class="form-control" name="QuocTich" value="{{ thong_tin.QuocTich if thong_tin else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Mã hợp đồng</label>
+                <input type="text" class="form-control" name="MAHD" value="{{ thong_tin.MAHD if thong_tin else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Mã phòng ban</label>
+                <input type="text" class="form-control" name="MaPB" value="{{ thong_tin.MaPB if thong_tin else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Mã chức vụ</label>
+                <input type="text" class="form-control" name="MaCV" value="{{ thong_tin.MaCV if thong_tin else '' }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Lương</label>
+                <input type="number" class="form-control" name="Luong" value="{{ thong_tin.Luong if thong_tin else '' }}" >
+            </div>
+        </div>
+
+        {% if current_user.role == 'employee' %}
+        <div class="alert alert-info mt-2">
+            Thông tin của bạn sẽ được gửi đến quản lý để phê duyệt trước khi được ghi nhận chính thức.
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+        <a href="{{ url_for('infor_employee.thong_tin_nhan_vien') }}" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+{% endblock %}

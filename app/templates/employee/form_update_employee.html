@@ -1,0 +1,95 @@
+{% extends layout %}
+{% block content %}
+<div class="container">
+    <h2 class="my-4">
+        {% if current_user.role == 'employee' %}
+            Gửi yêu cầu cập nhật thông tin
+        {% else %}
+            Cập nhật thông tin nhân viên
+        {% endif %}
+    </h2>
+
+    <form method="POST">
+        <div class="row mb-3">
+            <div class="col">
+                <label>Họ và tên</label>
+                <input name="TenNV" type="text" class="form-control" value="{{ thong_tin.TenNV or '' }}" required>
+            </div>
+            <div class="col">
+                <label>Giới tính</label>
+                <select name="Gioitinh" class="form-select" required>
+                    <option value="Nam" {% if thong_tin.Gioitinh == 'Nam' %}selected{% endif %}>Nam</option>
+                    <option value="Nữ" {% if thong_tin.Gioitinh == 'Nữ' %}selected{% endif %}>Nữ</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label>Ngày sinh</label>
+                <input name="NgaySinh" type="date" class="form-control"
+                       value="{{ thong_tin.NgaySinh.strftime('%Y-%m-%d') if thong_tin.NgaySinh else '' }}">
+            </div>
+            <div class="col">
+                <label>Số điện thoại</label>
+                <input name="SDT" type="text" class="form-control" value="{{ thong_tin.SDT or '' }}">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label>Email</label>
+                <input name="Email" type="email" class="form-control" value="{{ thong_tin.Email or '' }}">
+            </div>
+            <div class="col">
+                <label>Nơi sinh</label>
+                <input name="NoiSinh" type="text" class="form-control" value="{{ thong_tin.NoiSinh or '' }}">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label>Quốc tịch</label>
+                <input name="QuocTich" type="text" class="form-control" value="{{ thong_tin.QuocTich or '' }}">
+            </div>
+            <div class="col">
+                <label>Mã hợp đồng</label>
+                <input name="MAHD" type="text" class="form-control" value="{{ thong_tin.MAHD or '' }}">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label>Phòng ban</label>
+                <input name="MaPB" type="text" class="form-control" value="{{ thong_tin.MaPB or '' }}">
+            </div>
+            <div class="col">
+                <label>Chức vụ</label>
+                <input name="MaCV" type="text" class="form-control" value="{{ thong_tin.MaCV or '' }}">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label>Lương</label>
+                <input name="Luong" type="number" class="form-control" value="{{ thong_tin.Luong or '' }}">
+            </div>
+        </div>
+
+        {% if current_user.role == 'employee' %}
+        <div class="alert alert-info">
+            Sau khi gửi, thông tin sẽ được quản lý xem xét và phê duyệt.
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary">
+            {% if current_user.role == 'employee' %}
+                Gửi yêu cầu
+            {% else %}
+                Cập nhật
+            {% endif %}
+        </button>
+        <a href="{{ url_for('infor_employee.thong_tin_nhan_vien') }}" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+{% endblock %}

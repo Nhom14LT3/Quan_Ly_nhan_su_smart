@@ -1,0 +1,25 @@
+ body {
+        background: url('/static/img/bg_graduation.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+    .login-box {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 12px;
+        max-width: 400px;
+        margin: 80px auto;
+        box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+    .login-title {
+        font-weight: bold;
+        color: #0c2d57;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 40px;
+    }
+    .btn-google {
+        background-color: #4285F4;
+        color: white;
+    }
+    .btn-google:hover {
+        background-color: #357ae8;
+    }

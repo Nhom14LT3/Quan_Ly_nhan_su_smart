@@ -1,0 +1,72 @@
+{% extends layout %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/employee.css') }}">
+
+<div class="container">
+    <div class="form-container">
+        <a href="{{url_for('employee.list_employee') }}" class="back-link">
+            ← Quay lại danh sách
+        </a>
+        
+        <h3 class="form-title">Cập nhật nhân viên</h3>
+        
+        <div class="current-user-info">
+            <h4>🔄 Đang chỉnh sửa thông tin</h4>
+            <p>Nhân viên: <strong>{{ user.username }}</strong></p>
+        </div>
+        
+        <form method="POST" id="updateEmployeeForm">
+            <div class="form-group">
+                <label for="username" class="form-label">Tên đăng nhập</label>
+                <input type="text" name="username" id="username" class="form-control" required minlength="3" value="{{ user.username }}">
+                <span class="input-icon"><i class="fa fa-user"></i></span>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu mới</label>
+                <input type="password" name="password" id="password" class="form-control">
+                <span class="input-icon"><i class="fa fa-lock"></i></span>
+                <span class="password-toggle" onclick="togglePassword()">
+                    <i class="fa fa-eye" id="togglePasswordIcon"></i>
+                </span>
+            </div>
+            <div class="password-hint">
+                <i class="fa fa-lightbulb"></i> Để trống nếu không muốn thay đổi mật khẩu
+            </div>
+            <div class="form-group">
+                <label for="role" class="form-label">Phân quyền</label>
+                <select name="role" id="role" class="form-control" required>
+                    <option value="employee" {% if user.role == 'employee' %}selected{% endif %}>Nhân viên</option>
+                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Quản trị viên</option>
+                    <option value="manager" {% if user.role == 'manager' %}selected{% endif %}>Quản lý</option>
+                </select>
+                <span class="input-icon"><i class="fa fa-user-shield"></i></span>
+            </div>
+            
+            <button type="submit" class="btn-save">
+                <i class="fa fa-save"></i> Cập nhật thông tin
+            </button>
+        </form>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.querySelector('.password-toggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = document.getElementById('togglePasswordIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

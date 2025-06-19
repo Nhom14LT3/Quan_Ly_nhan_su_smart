@@ -1,0 +1,334 @@
+/* CSS tối ưu cho trang tổng kết công tháng */
+
+/* CSS Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --table-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    --hover-bg: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --success-color: #28a745;
+    --info-color: #007bff;
+    --danger-color: #dc3545;
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    --shadow-hover: 0 5px 15px rgba(0,0,0,0.2);
+    --transition: all 0.3s ease;
+}
+
+/* Base styles */
+.container-fluid {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+}
+
+/* Header */
+.bg-gradient {
+    background: var(--primary-gradient) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: var(--shadow);
+}
+
+.bg-gradient h3 {
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Form trong header */
+.bg-gradient .form-select,
+.bg-gradient .form-control {
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.9);
+    font-size: 13px;
+}
+
+.bg-gradient .form-select:focus,
+.bg-gradient .form-control:focus {
+    border-color: rgba(255,255,255,0.8);
+    background: white;
+    box-shadow: 0 0 0 0.1rem rgba(255,255,255,0.5);
+}
+
+.bg-gradient .btn-light {
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.bg-gradient .btn-light:hover {
+    background: white;
+    transform: translateY(-1px);
+}
+
+/* Buttons */
+.btn {
+    border: none;
+    font-weight: 500;
+    transition: var(--transition);
+    border-radius: var(--border-radius-sm);
+}
+
+.btn-light {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+}
+
+.btn-success {
+    background: var(--success-gradient);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-light:hover {
+    background: white;
+}
+
+/* Form */
+.bg-white {
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.form-select, .form-control {
+    border: 2px solid #e9ecef;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
+    font-size: 14px;
+}
+
+.form-select:focus, .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 13px;
+}
+
+/* Form layout - đưa form lên 1 hàng */
+.row.g-2 {
+    display: flex;
+    align-items: end;
+    flex-wrap: nowrap;
+    gap: 15px;
+}
+
+.row.g-2 .col-auto {
+    flex: 0 0 auto;
+    min-width: fit-content;
+}
+
+/* Table */
+.table-responsive {
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+    background: white;
+}
+
+.table {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.table thead th {
+    background: var(--table-gradient);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    padding: 15px 10px;
+    font-size: 13px;
+}
+
+.table tbody tr {
+    transition: var(--transition);
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.table tbody tr:hover {
+    background: var(--hover-bg);
+    transform: scale(1.01);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.table tbody td {
+    padding: 12px 10px;
+    vertical-align: middle;
+    border-color: #e9ecef;
+}
+
+/* Table data styling */
+.table tbody td:first-child {
+    font-weight: 600;
+    color: #6c757d;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.table tbody td:nth-child(3),
+.table tbody td:nth-child(4),
+.table tbody td:nth-child(5) {
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+.table tbody td:nth-child(3) { color: var(--success-color); }
+.table tbody td:nth-child(4) { color: var(--info-color); }
+.table tbody td:nth-child(5) { color: var(--danger-color); }
+
+/* Links */
+.table tbody td a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    position: relative;
+}
+
+.table tbody td a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.table tbody td a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: var(--primary-gradient);
+    transition: width 0.3s ease;
+}
+
+.table tbody td a:hover::after {
+    width: 100%;
+}
+
+/* Alert */
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border: none;
+    border-radius: var(--border-radius);
+    color: #856404;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table tbody tr:nth-child(n+1) { animation-delay: calc(0.1s * var(--i, 1)); }
+
+/* Custom scrollbar */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bg-gradient {
+        text-align: center;
+    }
+    
+    .bg-gradient h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    
+    .bg-gradient .d-flex {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .table {
+        font-size: 12px;
+    }
+    
+    .table thead th,
+    .table tbody td {
+        padding: 8px 5px;
+    }
+    
+    .btn-sm {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid {
+        padding: 15px !important;
+    }
+    
+    .bg-gradient {
+        margin: 0 -15px;
+        border-radius: 0;
+        padding: 20px 15px !important;
+    }
+    
+    .table-responsive {
+        margin: 0 -15px;
+        border-radius: 0;
+    }
+    
+    /* Stack form elements trên mobile */
+    .bg-gradient form {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .bg-gradient form > div {
+        justify-content: center;
+    }
+}
+
+/* Performance optimizations */
+* {
+    box-sizing: border-box;
+}
+
+.table tbody tr {
+    will-change: transform;
+}
+
+.btn {
+    will-change: transform;
+}

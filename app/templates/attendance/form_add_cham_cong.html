@@ -1,0 +1,25 @@
+{% extends layout %}
+{% block content %}
+<div class="container mt-4" style="max-width: 500px;">
+    <h2>Thêm bản ghi chấm công</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Họ tên</label>
+            <input type="text" name="name" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Ngày</label>
+            <input type="date" name="date" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Check-in</label>
+            <input type="time" name="check_in" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Check-out</label>
+            <input type="time" name="check_out" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success">Lưu</button>
+    </form>
+</div>
+{% endblock %}

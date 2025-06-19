@@ -1,0 +1,35 @@
+{% extends layout %}
+{% block content %}
+<div class="container mt-4">
+    <h4>Chi tiết chấm công: {{ user.username }} - Tháng {{ month }}/{{ year }}</h4>
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Ngày</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
+                <th>Tổng giờ</th>
+                <th>OT (giờ)</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in records %}
+            <tr>
+                <td>{{ r.date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ r.check_in.strftime('%H:%M:%S') if r.check_in else '-' }}</td>
+                <td>{{ r.check_out.strftime('%H:%M:%S') if r.check_out else '-' }}</td>
+                <td>{{ '%.2f' % r.total_hours if r.total_hours else '-' }}</td>
+                <td>{{ '%.2f' % r.ot_hours if r.ot_hours else '-' }}</td>
+                <td>
+                    <a href="{{ url_for('attendance.edit_attendance', id=r.id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                    <form method="POST" action="{{ url_for('attendance.delete_attendance', id=r.id) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Xoá bản ghi này?')">Xoá</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
