@@ -124,19 +124,18 @@ Quan_ly_nhan_su/
 
 ## Tài liệu & trình bày
 
-- Slide trình bày: https://drive.google.com/file/d/14TAz9K0-3OAD-UTbIGX_a8q81RGjWOzq/view?usp=sharing
 - Báo cáo chi tiết: https://drive.google.com/file/d/1vtyD4xOMvdyWtVzFW5gLwe8_rHewh7Gu/view?usp=sharing
 
 ---
 
 ## Liên hệ
 
-Tác giả chính: Hoàng Nguyễn  
-Email: 23010101@st.phenikaa-uni.edu.vn  
+Tác giả chính: Bùi Thế Phương 
+Email: 23010097@st.phenikaa-uni.edu.vn  
 GitHub: https://github.com/Group15N07/Quan_ly_nhan_su
 
 ---
 
 ## Giấy phép
 
-MIT License © Nguyễn Văn Hoàng – Phenikaa University
+MIT License © Bùi Thế Phương – Phenikaa University
