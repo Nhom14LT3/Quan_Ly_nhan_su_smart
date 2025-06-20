@@ -94,23 +94,29 @@ Truy cập trình duyệt: http://127.0.0.1:5000
 
 ## Cấu trúc thư mục
 
-```
 Quan_ly_nhan_su/
-├── app/
-│   ├── routes/           # Flask routes
-│   ├── models/           # ORM Models
-│   ├── templates/        # Giao diện Jinja2
-│   ├── static/           # CSS, JS, images
-│   ├── decorators/       # role_required, login_required...
-│   ├── utils/            # tiện ích xử lý
-│   └── services/         # xử lý AI
-├── face_module/
-│   ├── load_model.py     # load mô hình SCRFD + ArcFace
-│   └── weights/          # model .onnx
-├── run.py
-├── requirements.txt
-└── README.md
-```
+├── app/               # Thư mục chính chứa logic ứng dụng Flask
+│   ├── __init__.py    # Hàm create_app() để tạo Flask app
+│   ├── routes/        # Các file routes Flask (phân chia module)
+│   ├── models/        # Các model ORM (User, Attendance, ...)
+│   ├── templates/     # Giao diện HTML (dùng Jinja2)
+│   ├── static/        # CSS, JS, ảnh tĩnh
+│   ├── decorators/    # Các decorator như @login_required, @role_required
+│   ├── utils/         # Các hàm tiện ích (ví dụ xuất Excel, gửi mail)
+│   └── services/      # Xử lý AI: nhận diện khuôn mặt, load model
+│
+├── face_module/       # Module AI nhận diện khuôn mặt
+│   ├── load_model.py  # Load model SCRFD & ArcFace (.onnx)
+│   └── weights/       # Các model AI dạng .onnx
+│
+├── config.py          # File cấu hình Flask
+├── run.py             # File chạy Flask app
+├── seed.py            # Seed dữ liệu mẫu vào database
+├── requirements.txt   # Danh sách thư viện cần cài
+├── Procfile           # Khai báo command chạy app trên Render/Heroku
+├── database.db        # File SQLite database
+└── README.md          # Hướng dẫn dự án
+
 
 ---
 
